@@ -4,7 +4,7 @@ const Specializations: React.FC = () => {
   const specs = [
     "Finance", "Marketing", "Human Resource Management", "Analytics & Data Science",
     "IT & FinTech", "Operations Management", "International Business", "Information System Management",
-    "Project Management", "Supply Chain Management", "Banking, Financial Services & Insurance",
+    "Project Management", "Banking, Financial Services & Insurance",
     "Digital Marketing", "Retail Management"
   ];
 

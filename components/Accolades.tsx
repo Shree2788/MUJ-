@@ -3,7 +3,7 @@ import { Accolade } from '../types';
 
 const Accolades: React.FC = () => {
   const accolades: Accolade[] = [
-    { title: "UGC Entitled", subtitle: "University Grants Commission", image: "https://marvelleducation.com/wp-content/uploads/UGC.png" },
+    { title: "UGC Entitled", subtitle: "University Grants Commission", image: "https://marvelleducation.com/wp-content/uploads/UGC-2.jpg.webp" },
     { title: "NAAC A+", subtitle: "Accredited University", image: "https://marvelleducation.com/wp-content/uploads/NAAC-A-2.jpg.webp" },
     { title: "AICTE Approved", subtitle: "Technical Education", image: "https://marvelleducation.com/wp-content/uploads/AICTE-3-1.jpg.webp" },
     { title: "NIRF Ranked", subtitle: "Top 100 Universities", image: "https://marvelleducation.com/wp-content/uploads/NIRF-1.jpg.webp" },

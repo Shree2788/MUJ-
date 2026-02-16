@@ -14,7 +14,7 @@ interface LeadFormProps {
   source: string;
 }
 
-const BROCHURE_URL = "https://marvelleducation.com/wp-content/uploads/MUJ-MBA-Brochure-1.pdf";
+const BROCHURE_URL = "https://marvelleducation.com/wp-content/uploads/MUJ-MBA-Brochure.pdf";
 
 const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
   const [step, setStep] = useState(1);
@@ -182,8 +182,6 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
               <option value="Marketing">Marketing</option>
               <option value="Finance">Finance</option>
               <option value="HR">HR</option>
-              <option value="Supply Chain">Supply Chain</option>
-              <option value="Healthcare">Healthcare</option>
               <option value="IT & Fintech">IT & Fintech</option>
               <option value="Analytics and Data Science">Analytics and Data Science</option>
             </select>
