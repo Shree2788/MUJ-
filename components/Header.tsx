@@ -32,11 +32,6 @@ const Header: React.FC = () => {
                         (e.target as HTMLImageElement).style.display = 'none';
                     }}
                  />
-                 {/* Fallback text if logo fails or purely for SEO structure */}
-                 <div className="ml-2 hidden lg:block">
-                     <h1 className="text-sm font-bold text-muj-purple uppercase tracking-wide leading-tight">Manipal University<br/>Jaipur</h1>
-                     <p className="text-[10px] text-gray-500">NAAC A+ Accredited</p>
-                 </div>
              </div>
           </div>
         </div>
