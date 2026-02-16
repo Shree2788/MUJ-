@@ -25,7 +25,7 @@ const Header: React.FC = () => {
           <div className="flex flex-col">
              <div className="flex items-center gap-2">
                  <img 
-                    src="https://marvelleducation.com/wp-content/uploads/MUJ-2.png.webp" 
+                    src="https://marvelleducation.com/wp-content/uploads/MUJ-2.png-1.webp" 
                     alt="Manipal University Jaipur" 
                     className="h-10 md:h-14 w-auto" 
                     onError={(e) => {
