@@ -173,18 +173,13 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
               className="w-full px-4 py-3 rounded border border-gray-300 focus:ring-2 focus:ring-muj-orange focus:border-transparent outline-none bg-white transition-colors"
             >
               <option value="">Select Specialization</option>
-              <option value="Finance">Finance</option>
               <option value="Marketing">Marketing</option>
-              <option value="HRM">Human Resource Management</option>
-              <option value="Analytics">Analytics & Data Science</option>
-              <option value="IT & Fintech">IT & FinTech</option>
-              <option value="Operations">Operations Management</option>
-              <option value="International Business">International Business</option>
-              <option value="Project Management">Project Management</option>
-              <option value="Supply Chain">Supply Chain Management</option>
-              <option value="BFSI">BFSI</option>
-              <option value="Digital Marketing">Digital Marketing</option>
-              <option value="Retail">Retail Management</option>
+              <option value="Finance">Finance</option>
+              <option value="HR">HR</option>
+              <option value="Supply Chain">Supply Chain</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="IT & Fintech">IT & Fintech</option>
+              <option value="Analytics and Data Science">Analytics and Data Science</option>
             </select>
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
