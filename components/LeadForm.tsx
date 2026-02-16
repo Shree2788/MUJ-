@@ -14,6 +14,8 @@ interface LeadFormProps {
   source: string;
 }
 
+const BROCHURE_URL = "https://marvelleducation.com/wp-content/uploads/MUJ-MBA-Brochure-1.pdf";
+
 const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -88,7 +90,11 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
       if (window.dataLayer) {
         window.dataLayer.push({ event: 'success_formsubmit' });
       }
-      alert('Thank you for your interest! Our counselors will contact you shortly.');
+      
+      // Open the brochure in a new tab
+      window.open(BROCHURE_URL, '_blank');
+      
+      alert('Thank you for your interest! The brochure is opening in a new tab. Our counselors will contact you shortly.');
       onSuccess();
     } else {
       setError('Submission failed. Please try again.');
