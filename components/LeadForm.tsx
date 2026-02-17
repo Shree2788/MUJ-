@@ -184,6 +184,14 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
               <option value="HR">HR</option>
               <option value="IT & Fintech">IT & Fintech</option>
               <option value="Analytics and Data Science">Analytics and Data Science</option>
+              <option value="Operations Management">Operations Management</option>
+              <option value="International Business">International Business</option>
+              <option value="Information System Management">Information System Management</option>
+              <option value="Project Management">Project Management</option>
+              <option value="BFSI">Banking, Financial Services & Insurance</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+              <option value="Retail Management">Retail Management</option>
+              <option value="Supply Chain Management">Supply Chain Management</option>
             </select>
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}

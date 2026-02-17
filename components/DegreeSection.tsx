@@ -9,20 +9,13 @@ const DegreeSection: React.FC = () => {
           Upon successful completion, you will receive a UGC-entitled Master of Business Administration degree from Manipal University Jaipur, equivalent to an on-campus degree.
         </p>
         
-        <div className="relative max-w-4xl mx-auto p-4 bg-white rounded-xl shadow-lg">
-            {/* Hidden on mobile check done via CSS classes on image */}
-            <div className="aspect-w-16 aspect-h-9 md:aspect-h-10 bg-gray-200 rounded border-8 border-double border-gray-100 flex items-center justify-center overflow-hidden">
+        <div className="relative max-w-4xl mx-auto p-2 bg-white rounded-xl shadow-lg">
+            <div className="bg-gray-100 rounded border border-gray-200 overflow-hidden">
                 <img 
-                    src="https://picsum.photos/1200/800?random=certificate" 
-                    alt="Sample Degree Certificate" 
-                    className="w-full h-full object-cover hidden md:block" 
+                    src="https://marvelleducation.com/wp-content/uploads/Manipal-University-Jaipur-Sample-MBA-Certificate.jpeg" 
+                    alt="Manipal University Jaipur MBA Certificate" 
+                    className="w-full h-auto object-contain" 
                 />
-                <div className="md:hidden p-8 text-center bg-white w-full h-full flex flex-col justify-center items-center">
-                    <div className="w-20 h-20 bg-muj-orange rounded-full flex items-center justify-center text-white text-3xl font-bold mb-4">🎓</div>
-                    <h3 className="text-xl font-bold text-muj-purple">Manipal University Jaipur</h3>
-                    <p className="text-gray-500 mt-2">Master of Business Administration</p>
-                    <p className="text-xs text-gray-400 mt-4">(Sample Certificate View)</p>
-                </div>
             </div>
         </div>
       </div>

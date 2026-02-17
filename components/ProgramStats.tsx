@@ -34,12 +34,13 @@ const ProgramStats: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-1/2 hidden md:block">
-             {/* Hidden on mobile per instructions */}
-             <div className="grid grid-cols-2 gap-4">
-                <img src="https://picsum.photos/300/300?random=2" className="rounded-lg shadow-lg" alt="Campus Life" />
-                <img src="https://picsum.photos/300/300?random=3" className="rounded-lg shadow-lg mt-8" alt="Convocation" />
-             </div>
+          <div className="w-full md:w-1/2">
+             <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/2/26/Manipal_University_Jaipur.jpg" 
+                alt="Manipal University Jaipur Campus" 
+                className="rounded-lg shadow-2xl w-full h-auto border-4 border-white/20"
+             />
+             <p className="text-center text-xs text-white/50 mt-2">Manipal University Jaipur Campus</p>
           </div>
         </div>
       </div>

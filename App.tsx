@@ -5,6 +5,7 @@ import Accolades from './components/Accolades';
 import ProgramStats from './components/ProgramStats';
 import Specializations from './components/Specializations';
 import FeeSection from './components/FeeSection';
+import PlacementSection from './components/PlacementSection';
 import DegreeSection from './components/DegreeSection';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
@@ -50,6 +51,7 @@ const App: React.FC = () => {
         <Accolades />
         <ProgramStats />
         <Specializations />
+        <PlacementSection />
         <FeeSection onCtaClick={() => openForm("Get Scholarship Details")} />
         <DegreeSection />
         <FAQ />
