@@ -8,20 +8,24 @@ const FAQ: React.FC = () => {
       answer: "Yes, the Online MBA program is entitled by UGC, accredited by NAAC with A+ grade, and AICTE approved. The degree is equivalent to an on-campus degree for jobs and higher education."
     },
     {
-      question: "What is the duration of the program?",
-      answer: "The program is for a minimum of 2 years (4 semesters) and a maximum of 4 years."
+      question: "Who is eligible to apply for this program?",
+      answer: "Candidates must hold a Bachelor's degree (10+2+3) in any discipline from a recognized university with a minimum of 50% marks in aggregate (45% for reserved categories)."
     },
     {
-      question: "Are there any EMI options available?",
-      answer: "Yes, we offer easy financing options including No-Cost EMIs starting at ₹6,198 per month to make quality education accessible."
+      question: "What is the duration of the program?",
+      answer: "The program is for a minimum of 2 years (4 semesters) and a maximum of 4 years, allowing flexibility for working professionals."
+    },
+    {
+      question: "Is this program suitable for working professionals?",
+      answer: "Absolutely. The program is designed specifically for working professionals, offering flexible schedules so you can upskill without quitting your current job."
+    },
+    {
+      question: "How are the classes conducted?",
+      answer: "Classes are conducted 100% online through a state-of-the-art Learning Management System (LMS). You will have access to live weekend sessions, recorded video lectures, and e-learning study materials 24/7."
     },
     {
       question: "How are the exams conducted?",
       answer: "Examinations are held online and are computer-based and proctored. You can take them from the comfort of your home using a laptop/desktop with a webcam."
-    },
-    {
-        question: "Is there placement assistance?",
-        answer: "Yes, we provide robust placement assistance including resume building, mock interviews, and access to a placement portal with 500+ hiring partners."
     }
   ];
 

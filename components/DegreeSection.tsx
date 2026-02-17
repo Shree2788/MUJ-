@@ -14,7 +14,8 @@ const DegreeSection: React.FC<DegreeSectionProps> = ({ onCtaClick }) => {
           Upon successful completion, you will receive a UGC-entitled Master of Business Administration degree from Manipal University Jaipur, equivalent to an on-campus degree.
         </p>
         
-        <div className="relative max-w-4xl mx-auto p-2 bg-white rounded-xl shadow-lg mb-8">
+        {/* Changed max-w-4xl to max-w-xl on desktop to reduce size by approx 35% */}
+        <div className="relative w-full max-w-4xl md:max-w-xl mx-auto p-2 bg-white rounded-xl shadow-lg mb-8">
             <div className="bg-gray-100 rounded border border-gray-200 overflow-hidden">
                 <img 
                     src="https://marvelleducation.com/wp-content/uploads/Manipal-University-Jaipur-Sample-MBA-Certificate.jpeg" 

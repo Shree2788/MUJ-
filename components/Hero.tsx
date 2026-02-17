@@ -87,7 +87,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
             
             {/* Subheadline - Centered max-width on mobile */}
             <p className="text-base md:text-lg text-gray-800 mb-4 font-medium leading-relaxed max-w-xl mx-auto md:mx-0">
-              UGC Entitled & NAAC A+ Accredited. Fast-track your career with a degree that is recognized globally by WES and top recruiters.
+              Fast-track your career with a degree that is <span className="font-bold text-gray-900 bg-orange-100/50 px-1 rounded">equivalent to an on-campus degree</span> and recognized globally by WES and top recruiters.
             </p>
 
             {/* Trust Markers - Aligned properly: Centered block, left aligned items */}
