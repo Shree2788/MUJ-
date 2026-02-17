@@ -23,20 +23,22 @@ const Specializations: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-10 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Choose from 13 Career-Focused Specializations</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Choose from 13 Career-Focused Specializations</h2>
+          <div className="w-20 h-1 bg-muj-orange mx-auto mb-4 rounded"></div>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-6">
             Tailor your MBA to your career goals with our diverse range of electives designed for the modern industry.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
+        {/* Updated Grid for Mobile: grid-cols-2 */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
           {specs.map((spec, idx) => (
-            <div key={idx} className="bg-white p-5 rounded-lg shadow hover:shadow-lg border-l-4 border-muj-light-purple hover:border-muj-orange transition-all cursor-default group flex items-center justify-between">
-                <span className="font-semibold text-gray-800 group-hover:text-muj-purple transition-colors">{spec}</span>
-                <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-xs font-bold text-gray-300 group-hover:bg-muj-orange group-hover:text-white transition-all">
+            <div key={idx} className="bg-gray-50 p-4 md:p-5 rounded-lg border border-gray-100 hover:border-muj-orange hover:shadow-lg transition-all cursor-default group flex flex-col md:flex-row items-start md:items-center justify-between h-full">
+                <span className="font-semibold text-gray-800 text-sm md:text-base group-hover:text-muj-orange transition-colors">{spec}</span>
+                <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-xs font-bold text-gray-400 group-hover:bg-muj-orange group-hover:text-white group-hover:border-muj-orange transition-all mt-2 md:mt-0 self-end md:self-auto shrink-0">
                     {idx + 1}
                 </div>
             </div>
