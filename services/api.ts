@@ -1,7 +1,7 @@
 import { LeadFormData } from '../types';
 import { getUTMParams } from '../utils/utm';
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3dtknDrbSihWgL8eSyh2vhcd5DNGRniBQqrFyqZQYKOz-L8jhZtxrLMblWMCZsllb4A/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKNnGdbRfsLQLSQQ8_Lm1URaMfGzj5cL_aBIqmvbYQlTg6se_0Suy-mOmrgvLwiCTBMw/exec';
 
 /*
   ================================================================================
@@ -140,6 +140,8 @@ export const submitLeadForm = async (data: LeadFormData): Promise<boolean> => {
       ...utms,
       submittedAt: new Date().toISOString()
     };
+    
+    console.log("Submitting lead form with payload:", payload);
 
     await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
