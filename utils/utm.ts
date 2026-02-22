@@ -34,20 +34,8 @@ export const extractUTMParams = (): void => {
 
   // ad_name -> utm_content
   if (!globalUTMs.utm_content) {
-    const adName = urlParams.get('ad_name') || urlParams.get('adname') || urlParams.get('ad');
+    const adName = urlParams.get('ad_name') || urlParams.get('adname');
     if (adName) globalUTMs.utm_content = adName;
-  }
-
-  // adgroup -> utm_adgroup
-  if (!globalUTMs.utm_adgroup) {
-    const adgroup = urlParams.get('adgroup') || urlParams.get('ad_group');
-    if (adgroup) globalUTMs.utm_adgroup = adgroup;
-  }
-
-  // match_type -> matchtype
-  if (!globalUTMs.matchtype) {
-    const mt = urlParams.get('match_type');
-    if (mt) globalUTMs.matchtype = mt;
   }
   
   // Also store in sessionStorage to persist across reloads if needed

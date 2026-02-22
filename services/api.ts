@@ -140,8 +140,6 @@ export const submitLeadForm = async (data: LeadFormData): Promise<boolean> => {
       ...utms,
       submittedAt: new Date().toISOString()
     };
-    
-    console.log("Submitting lead form with payload:", payload);
 
     await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
