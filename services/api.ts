@@ -1,7 +1,7 @@
 import { LeadFormData } from '../types';
 import { getUTMParams } from '../utils/utm';
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKNnGdbRfsLQLSQQ8_Lm1URaMfGzj5cL_aBIqmvbYQlTg6se_0Suy-mOmrgvLwiCTBMw/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby33h2i9CYj9u3l5bvfVmKHY0F-8yyDp5PJWtFME7g7CiI2F8RRjly7hczIrHbsB127tg/exec';
 
 /*
   ================================================================================
@@ -36,11 +36,10 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKNnGdbRfsLQ
       if (!sheet) {
         sheet = doc.insertSheet(sheetName);
         sheet.appendRow([
-          'Lead ID',    // Column 1
-          'Date',       // Column 2
-          'Name',       // Column 3
-          'Phone',      // Column 4
-          'Email', 
+          'Date',       // Column 1
+          'Name',       // Column 2
+          'Phone',      // Column 3
+          'Email',      // Column 4
           'Experience', 
           'Specialization', 
           'Stage', 
@@ -53,7 +52,8 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKNnGdbRfsLQ
           'Match Type', 
           'Device', 
           'Keyword', 
-          'Placement'
+          'Placement',
+          'Lead ID'     // Column 18 (Moved to end)
         ]);
       }
 
@@ -62,7 +62,6 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKNnGdbRfsLQ
       
       // Prepare row data
       var rowData = [
-        leadId,
         new Date(),
         data.name || '',
         data.phone || '',
@@ -79,22 +78,23 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKNnGdbRfsLQ
         data.matchtype || '',
         data.utm_device || '',
         data.utm_term || '',
-        data.placement || ''
+        data.placement || '',
+        leadId // Lead ID at the end
       ];
 
       // LOGIC: Check if Lead ID exists. If so, update that row. If not, append.
       var rowIndex = -1;
       
       if (leadId) {
-        // Read the first column (Lead IDs)
-        // getDataRange() gets all data, we only need Col A
-        // Just getting column A up to the last row
+        // Read the Lead ID column (Column 18)
         var lastRow = sheet.getLastRow();
         if (lastRow > 1) {
-            var ids = sheet.getRange(2, 1, lastRow - 1, 1).getValues(); // Get IDs excluding header
+            // getRange(row, column, numRows, numColumns)
+            // Column 18 is Lead ID
+            var ids = sheet.getRange(2, 18, lastRow - 1, 1).getValues(); 
             for (var i = 0; i < ids.length; i++) {
                 if (ids[i][0] == leadId) {
-                    rowIndex = i + 2; // +2 because array is 0-indexed and we started at row 2
+                    rowIndex = i + 2; 
                     break;
                 }
             }
@@ -103,7 +103,6 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKNnGdbRfsLQ
 
       if (rowIndex > 0) {
         // Update existing row
-        // We overwrite the entire row to ensure latest data
         sheet.getRange(rowIndex, 1, 1, rowData.length).setValues([rowData]);
       } else {
         // Append new row
