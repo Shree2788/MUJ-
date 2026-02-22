@@ -13,7 +13,7 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3dtknDrbSih
   4. Save the project.
   5. Click "Deploy" -> "New Deployment".
   6. Select type: "Web app".
-  7. Description: "Lead Form API v2".
+  7. Description: "Lead Form API v3".
   8. Execute as: "Me" (your email).
   9. Who has access: "Anyone" (IMPORTANT).
   10. Click "Deploy".
@@ -32,13 +32,14 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3dtknDrbSih
       var doc = SpreadsheetApp.getActiveSpreadsheet();
       var sheet = doc.getSheetByName(sheetName);
 
-      // If sheet doesn't exist, create it and add headers in the requested order
+      // If sheet doesn't exist, create it and add headers
       if (!sheet) {
         sheet = doc.insertSheet(sheetName);
         sheet.appendRow([
-          'Date', 
-          'Name', 
-          'Phone', 
+          'Lead ID',    // Column 1
+          'Date',       // Column 2
+          'Name',       // Column 3
+          'Phone',      // Column 4
           'Email', 
           'Experience', 
           'Specialization', 
@@ -57,29 +58,60 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz3dtknDrbSih
       }
 
       var data = JSON.parse(e.postData.contents);
+      var leadId = data.leadId || '';
+      
+      // Prepare row data
+      var rowData = [
+        leadId,
+        new Date(),
+        data.name || '',
+        data.phone || '',
+        data.email || '',
+        data.experience || '',
+        data.specialization || '',
+        data.stage || '',
+        data.source || '',
+        data.utm_source || '',
+        data.utm_medium || '',
+        data.utm_campaign || '',
+        data.utm_adgroup || '',
+        data.utm_content || '',
+        data.matchtype || '',
+        data.utm_device || '',
+        data.utm_term || '',
+        data.placement || ''
+      ];
 
-      sheet.appendRow([
-        new Date(),                 // Date
-        data.name || '',            // Name
-        data.phone || '',           // Phone
-        data.email || '',           // Email
-        data.experience || '',      // Experience
-        data.specialization || '',  // Specialization
-        data.stage || '',           // Stage
-        data.source || '',          // Source
-        data.utm_source || '',      // utm_source
-        data.utm_medium || '',      // utm_medium
-        data.utm_campaign || '',    // campaign name
-        data.utm_adgroup || '',     // adgroup name
-        data.utm_content || '',     // ad name (mapped from utm_content)
-        data.matchtype || '',       // match type
-        data.utm_device || '',      // device
-        data.utm_term || '',        // keyword (mapped from utm_term)
-        data.placement || ''        // placement
-      ]);
+      // LOGIC: Check if Lead ID exists. If so, update that row. If not, append.
+      var rowIndex = -1;
+      
+      if (leadId) {
+        // Read the first column (Lead IDs)
+        // getDataRange() gets all data, we only need Col A
+        // Just getting column A up to the last row
+        var lastRow = sheet.getLastRow();
+        if (lastRow > 1) {
+            var ids = sheet.getRange(2, 1, lastRow - 1, 1).getValues(); // Get IDs excluding header
+            for (var i = 0; i < ids.length; i++) {
+                if (ids[i][0] == leadId) {
+                    rowIndex = i + 2; // +2 because array is 0-indexed and we started at row 2
+                    break;
+                }
+            }
+        }
+      }
+
+      if (rowIndex > 0) {
+        // Update existing row
+        // We overwrite the entire row to ensure latest data
+        sheet.getRange(rowIndex, 1, 1, rowData.length).setValues([rowData]);
+      } else {
+        // Append new row
+        sheet.appendRow(rowData);
+      }
 
       return ContentService
-        .createTextOutput(JSON.stringify({ 'result': 'success' }))
+        .createTextOutput(JSON.stringify({ 'result': 'success', 'updated': rowIndex > 0 }))
         .setMimeType(ContentService.MimeType.JSON);
 
     } catch (e) {
@@ -112,7 +144,8 @@ export const submitLeadForm = async (data: LeadFormData): Promise<boolean> => {
     await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       body: JSON.stringify(payload),
-      mode: 'no-cors' 
+      mode: 'no-cors',
+      keepalive: true // Ensures request completes even if page unloads/tab closes
     });
 
     return true;

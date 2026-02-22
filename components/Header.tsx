@@ -14,7 +14,11 @@ const WhatsappIcon = () => (
   </svg>
 );
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onApplyNow?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onApplyNow }) => {
   const phoneNumber = "9886895560";
 
   return (
@@ -47,7 +51,7 @@ const Header: React.FC = () => {
           </a>
           <Button 
             className="hidden md:block py-3 px-6 text-base"
-            onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
+            onClick={onApplyNow}
           >
             Apply Now
           </Button>

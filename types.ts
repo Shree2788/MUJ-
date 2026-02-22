@@ -11,6 +11,7 @@ export interface UTMParams {
 }
 
 export interface LeadFormData {
+  leadId?: string;
   name: string;
   phone: string;
   email: string;

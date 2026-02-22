@@ -93,7 +93,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
-      <Header />
+      <Header onApplyNow={() => openForm("Apply Now")} />
       <main className="flex-grow">
         <Hero onCtaClick={() => openForm("Download Brochure")} />
         <Accolades />

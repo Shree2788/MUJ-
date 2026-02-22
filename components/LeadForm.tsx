@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Button from './Button';
 import { submitLeadForm } from '../services/api';
 
@@ -20,6 +20,14 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  
+  // Generate a unique ID for this session to link Stage 1 and Stage 2
+  const leadIdRef = useRef<string>('');
+
+  useEffect(() => {
+    // Simple unique ID generation
+    leadIdRef.current = Date.now().toString(36) + Math.random().toString(36).substr(2);
+  }, []);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -55,6 +63,18 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
       return;
     }
     
+    // CAPTURE STAGE 1 DATA (Partial Submission)
+    // We send this immediately so we capture drop-offs
+    const partialData = {
+        ...formData,
+        leadId: leadIdRef.current,
+        stage: 'Stage 1' as const,
+        source
+    };
+
+    // Fire and forget (or handle silently) so we don't block the UI transition
+    submitLeadForm(partialData).catch(err => console.error("Stage 1 capture failed", err));
+    
     // Trigger custom event
     if (window.dataLayer) {
       window.dataLayer.push({ event: 'form_submit1' });
@@ -63,7 +83,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
     setStep(2);
   };
 
-  const handleFinalSubmit = async (e: React.FormEvent) => {
+  const handleFinalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateEmail(formData.email)) {
       setError('Please enter a valid email address');
@@ -80,25 +100,27 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
 
     setIsSubmitting(true);
     
-    const success = await submitLeadForm({
+    // Send Complete Data in BACKGROUND (Optimistic Update)
+    // We do NOT await this. This eliminates the 3-second delay.
+    // The 'keepalive: true' in api.ts ensures it finishes even if component unmounts.
+    submitLeadForm({
       ...formData,
+      leadId: leadIdRef.current,
       stage: 'Complete',
       source
-    });
+    }).catch(err => console.error("Final submission error (background)", err));
 
-    if (success) {
-      if (window.dataLayer) {
-        window.dataLayer.push({ event: 'success_formsubmit' });
-      }
-      
-      // Open the brochure in a new tab
-      window.open(BROCHURE_URL, '_blank');
-      
-      alert('Thank you for your interest! The brochure is opening in a new tab. Our counselors will contact you shortly.');
-      onSuccess();
-    } else {
-      setError('Submission failed. Please try again.');
+    // Immediate User Feedback
+    if (window.dataLayer) {
+      window.dataLayer.push({ event: 'success_formsubmit' });
     }
+    
+    // Open the brochure in a new tab
+    window.open(BROCHURE_URL, '_blank');
+    
+    alert('Thank you for your interest! The brochure is opening in a new tab. Our counselors will contact you shortly.');
+    onSuccess();
+    
     setIsSubmitting(false);
   };
 
