@@ -19,7 +19,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onApplyNow }) => {
-  const phoneNumber = "9886895560";
+  const callNumber = "9986899150";
+  const whatsappNumber = "9886895560";
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-40">
@@ -41,11 +42,11 @@ const Header: React.FC<HeaderProps> = ({ onApplyNow }) => {
         </div>
 
         <div className="flex items-center gap-4 md:gap-8">
-          <a href={`tel:${phoneNumber}`} className="flex items-center text-gray-800 hover:text-muj-orange font-medium text-base md:text-lg transition-colors">
+          <a href={`tel:${callNumber}`} className="flex items-center text-gray-800 hover:text-muj-orange font-medium text-base md:text-lg transition-colors">
             <PhoneIcon />
-            <span className="hidden md:inline">{phoneNumber}</span>
+            <span className="hidden md:inline">{callNumber}</span>
           </a>
-          <a href={`https://wa.me/91${phoneNumber}`} target="_blank" rel="noopener noreferrer" className="flex items-center text-green-600 hover:text-green-700 font-medium text-base md:text-lg transition-colors">
+          <a href={`https://wa.me/91${whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="flex items-center text-green-600 hover:text-green-700 font-medium text-base md:text-lg transition-colors">
             <WhatsappIcon />
             <span className="hidden md:inline">WhatsApp</span>
           </a>
