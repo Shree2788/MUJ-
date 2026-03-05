@@ -20,7 +20,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onApplyNow }) => {
   const callNumber = "9986899150";
-  const whatsappNumber = "9886895560";
+  const whatsappNumber = "9986899150";
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-40">
