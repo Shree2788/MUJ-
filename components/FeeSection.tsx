@@ -38,8 +38,8 @@ const FeeSection: React.FC<FeeProps> = ({ onCtaClick }) => {
               <p className="text-sm text-gray-500 mb-4">per month (EMI)</p>
               
               <div className="border-t border-gray-100 pt-4 mb-4">
-                 <p className="text-sm text-gray-600">Total Course Fee: <span className="font-bold">₹1,75,000</span></p>
-                 <p className="text-xs text-gray-400">(or ₹43,750 / semester)</p>
+                 <p className="text-sm text-gray-600">Total Course Fee: <span className="font-bold">₹1,80,000</span></p>
+                 <p className="text-xs text-gray-400">(or ₹45,000 / semester)</p>
               </div>
 
               <Button onClick={onCtaClick} fullWidth className="bg-gray-900 hover:bg-gray-800">
