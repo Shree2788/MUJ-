@@ -21,13 +21,6 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   
-  // OTP State
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpVerified, setOtpVerified] = useState(false);
-  const [otpCode, setOtpCode] = useState('');
-  const [isSendingOtp, setIsSendingOtp] = useState(false);
-  const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
-  
   // Generate a unique ID for this session to link Stage 1 and Stage 2
   const leadIdRef = useRef<string>('');
 
@@ -59,57 +52,6 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
     return regex.test(email);
   };
 
-  const sendOtp = async () => {
-    if (!validatePhone(formData.phone)) {
-      setError('Please enter a valid 10-digit phone number');
-      return;
-    }
-    setIsSendingOtp(true);
-    setError('');
-    try {
-      const res = await fetch('/api/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: `+91${formData.phone}` })
-      });
-      const data = await res.json();
-      if (data.success) {
-        setOtpSent(true);
-      } else {
-        setError(data.error || 'Failed to send OTP');
-      }
-    } catch (err) {
-      setError('Network error. Please try again.');
-    }
-    setIsSendingOtp(false);
-  };
-
-  const verifyOtp = async () => {
-    if (!otpCode || otpCode.length !== 6) {
-      setError('Please enter a valid 6-digit OTP');
-      return;
-    }
-    setIsVerifyingOtp(true);
-    setError('');
-    try {
-      const res = await fetch('/api/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: `+91${formData.phone}`, code: otpCode })
-      });
-      const data = await res.json();
-      if (data.success) {
-        setOtpVerified(true);
-        setError('');
-      } else {
-        setError(data.error || 'Invalid OTP');
-      }
-    } catch (err) {
-      setError('Network error. Please try again.');
-    }
-    setIsVerifyingOtp(false);
-  };
-
   const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim()) {
@@ -118,10 +60,6 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
     }
     if (!validatePhone(formData.phone)) {
       setError('Please enter a valid 10-digit phone number starting with 7, 8, or 9');
-      return;
-    }
-    if (!otpVerified) {
-      setError('Please verify your phone number with OTP first');
       return;
     }
     
@@ -203,67 +141,23 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSuccess, source }) => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-            <div className="flex gap-2">
-              <div className="flex flex-1">
-                <span className="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
-                  +91
-                </span>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  disabled={otpVerified || otpSent}
-                  onChange={(e) => {
-                     const val = e.target.value.replace(/\D/g, '').slice(0, 10);
-                     setFormData({ ...formData, phone: val });
-                  }}
-                  className="w-full px-4 py-3 rounded-r border border-gray-300 focus:ring-2 focus:ring-muj-orange focus:border-transparent outline-none transition-colors disabled:bg-gray-100"
-                  placeholder="10-digit mobile number"
-                />
-              </div>
-              {!otpVerified && (
-                <button
-                  type="button"
-                  onClick={sendOtp}
-                  disabled={isSendingOtp || formData.phone.length !== 10 || otpSent}
-                  className="px-4 py-2 bg-gray-800 text-white rounded font-medium disabled:opacity-50 whitespace-nowrap"
-                >
-                  {isSendingOtp ? 'Sending...' : otpSent ? 'Sent' : 'Send OTP'}
-                </button>
-              )}
+            <div className="flex">
+              <span className="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
+                +91
+              </span>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={(e) => {
+                   const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                   setFormData({ ...formData, phone: val });
+                }}
+                className="w-full px-4 py-3 rounded-r border border-gray-300 focus:ring-2 focus:ring-muj-orange focus:border-transparent outline-none transition-colors"
+                placeholder="10-digit mobile number"
+              />
             </div>
-            {otpVerified && <p className="text-green-600 text-xs mt-1">✓ Phone number verified</p>}
           </div>
-
-          {otpSent && !otpVerified && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Enter OTP</label>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={otpCode}
-                  onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  className="flex-1 px-4 py-3 rounded border border-gray-300 focus:ring-2 focus:ring-muj-orange focus:border-transparent outline-none transition-colors"
-                  placeholder="6-digit OTP"
-                />
-                <button
-                  type="button"
-                  onClick={verifyOtp}
-                  disabled={isVerifyingOtp || otpCode.length !== 6}
-                  className="px-4 py-2 bg-muj-orange text-white rounded font-medium disabled:opacity-50 whitespace-nowrap"
-                >
-                  {isVerifyingOtp ? 'Verifying...' : 'Verify'}
-                </button>
-              </div>
-              <button 
-                type="button" 
-                onClick={() => { setOtpSent(false); setOtpCode(''); }}
-                className="text-xs text-muj-orange mt-2 hover:underline"
-              >
-                Change Phone Number
-              </button>
-            </div>
-          )}
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <Button type="submit" fullWidth>Next</Button>
           <p className="text-xs text-center text-gray-500">
