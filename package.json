@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node server.ts",
-    "build": "vite build",
-    "start": "node server.ts",
+    "dev": "tsx server.ts",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --format=esm --external:express --external:twilio --external:cors --external:dotenv --external:vite --outfile=dist/server.js",
+    "start": "node dist/server.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "esbuild": "^0.28.0",
     "typescript": "^5.5.3",
     "vite": "^5.3.4"
   }

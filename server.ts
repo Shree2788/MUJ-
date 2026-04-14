@@ -3,6 +3,7 @@ import twilio from 'twilio';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -69,13 +70,25 @@ async function startServer() {
   });
 
   // Vite middleware for development
-  if (process.env.NODE_ENV !== "production") {
-    const { createServer: createViteServer } = await import('vite');
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa",
-    });
-    app.use(vite.middlewares);
+  const isProd = process.env.NODE_ENV === "production";
+
+  if (!isProd) {
+    try {
+      const { createServer: createViteServer } = await import('vite');
+      const vite = await createViteServer({
+        server: { middlewareMode: true },
+        appType: "spa",
+      });
+      app.use(vite.middlewares);
+    } catch (e) {
+      console.error("Failed to load vite, falling back to static serving:", e);
+      const distPath = path.join(process.cwd(), 'dist');
+      app.use(express.static(distPath));
+      app.use((req, res, next) => {
+        if (req.path.startsWith('/api/')) return next();
+        res.sendFile(path.join(distPath, 'index.html'));
+      });
+    }
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
