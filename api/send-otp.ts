@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     await client.verify.v2
       .services(process.env.TWILIO_VERIFY_SERVICE_SID)
       .verifications.create({
-        to: `+91${phone}`,
+        to: `${phone}`,
         channel: "sms",
       });
 
